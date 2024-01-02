@@ -47,7 +47,8 @@ func Test_Dispacher(t *testing.T) {
 		Expected: expected,
 	}
 	bankrupted := 0
-	dis := dispacher.New(bankrupted)
+	dis := dispacher.New()
+	dis.Publish(bankrupted)
 	registration := bankrupt{account, bank}
 	dis.Bind(bankrupted, registration)
 	dis.Send(bankrupted)

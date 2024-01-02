@@ -6,9 +6,6 @@ import(
 )
 
 func New(events ...int) event.Dispatcher {
-	if len(events) == 0 {
-		panic("dispacher.New: events is empty")
-	}
 	queues := make(map[int]map[string]event.Registration, len(events))
 	for _, id := range events{
 		queues[id] = make(map[string]event.Registration)
@@ -51,4 +48,14 @@ func (d dispacher) Unbind(event int, reg event.Registration) error {
 	}
 	return fmt.Errorf("Event does not exist")
 
+}
+func (d dispacher) Publish(id int) bool {
+	if _, ok := d.queues[id]; !ok {
+		d.queues[id] = make(map[string]event.Registration)
+	}
+	return true
+}
+func (d dispacher) Unpublish(id int) bool {
+	delete(d.queues, id)
+	return true
 }
