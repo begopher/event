@@ -1,4 +1,4 @@
-package dispacher
+package dispatcher
 
 import(
 	"fmt"
